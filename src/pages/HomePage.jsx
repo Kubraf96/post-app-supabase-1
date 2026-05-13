@@ -27,7 +27,9 @@ export default function HomePage() {
     setSort("created_at.desc");
   }
 
-  const filteredPosts = posts.filter((post) => post.caption.toLowerCase().includes(searchText.trim().toLowerCase()));
+  const filteredPosts = posts.filter((post) =>
+    post.caption.toLowerCase().includes(searchText.trim().toLowerCase())
+  );
 
   filteredPosts.sort((postA, postB) => {
     if (sort === "created_at.desc") {
@@ -36,6 +38,10 @@ export default function HomePage() {
 
     if (sort === "created_at.asc") {
       return new Date(postA.created_at) - new Date(postB.created_at);
+    }
+
+    if (sort === "caption.desc") {
+      return postB.caption.localeCompare(postA.caption);
     }
 
     return postA.caption.localeCompare(postB.caption);
@@ -64,6 +70,7 @@ export default function HomePage() {
               <option value="created_at.desc">Newest first</option>
               <option value="created_at.asc">Oldest first</option>
               <option value="caption.asc">Caption A-Z</option>
+              <option value="caption.desc">Caption Z-A</option>
             </select>
           </div>
 
