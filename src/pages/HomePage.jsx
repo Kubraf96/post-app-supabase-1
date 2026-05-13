@@ -58,6 +58,7 @@ export default function HomePage() {
               <option value="created_at.desc">Newest first</option>
               <option value="created_at.asc">Oldest first</option>
               <option value="caption.asc">Caption A-Z</option>
+              <option value="caption.desc">Caption Z-A</option>
             </select>
           </div>
 
