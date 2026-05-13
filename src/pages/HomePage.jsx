@@ -4,7 +4,7 @@ import PostCard from "../components/PostCard";
 const URL = import.meta.env.VITE_SUPABASE_URL;
 const headers = {
   apikey: import.meta.env.VITE_SUPABASE_APIKEY,
-  "Content-Type": "application/json",
+  "Content-Type": "application/json"
 };
 
 export default function HomePage() {
@@ -14,21 +14,21 @@ export default function HomePage() {
 
   useEffect(() => {
     async function getPosts() {
-      const params = new URLSearchParams();
+      const params = new URLSearchParams(); // Create URLSearchParams object to build query string
 
       if (searchText.trim()) {
-        params.set("caption", `ilike.*${searchText.trim()}*`);
+        params.set("caption", `ilike.*${searchText.trim()}*`); // Add search filter if searchText is not empty
       }
 
-      params.set("order", sort);
+      params.set("order", sort); // Add sorting parameter
 
-      const response = await fetch(`${URL}?${params}`, { headers });
-      const data = await response.json();
-      setPosts(data);
+      const response = await fetch(`${URL}?${params}`, { headers }); // Fetch posts with query parameters
+      const data = await response.json(); // Parse response as JSON
+      setPosts(data); // Update state with fetched posts
     }
 
     getPosts();
-  }, [searchText, sort]);
+  }, [searchText, sort]); // Re-run effect whenever searchText or sort changes
 
   function resetFilters() {
     setSearchText("");
@@ -54,22 +54,14 @@ export default function HomePage() {
 
           <div className="form-field">
             <label htmlFor="sort-posts">Sort posts</label>
-            <select
-              id="sort-posts"
-              value={sort}
-              onChange={(event) => setSort(event.target.value)}
-            >
+            <select id="sort-posts" value={sort} onChange={(event) => setSort(event.target.value)}>
               <option value="created_at.desc">Newest first</option>
               <option value="created_at.asc">Oldest first</option>
               <option value="caption.asc">Caption A-Z</option>
             </select>
           </div>
 
-          <button
-            type="button"
-            className="btn btn-primary"
-            onClick={resetFilters}
-          >
+          <button type="button" className="btn btn-primary" onClick={resetFilters}>
             Reset filters
           </button>
         </div>
