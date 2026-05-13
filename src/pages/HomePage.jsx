@@ -14,26 +14,32 @@ export default function HomePage() {
 
   useEffect(() => {
     async function getPosts() {
-      const params = new URLSearchParams(); // Create URLSearchParams object to build query string
-
-      if (searchText.trim()) {
-        params.set("caption", `ilike.*${searchText.trim()}*`); // Add search filter if searchText is not empty
-      }
-
-      params.set("order", sort); // Add sorting parameter
-
-      const response = await fetch(`${URL}?${params}`, { headers }); // Fetch posts with query parameters
-      const data = await response.json(); // Parse response as JSON
-      setPosts(data); // Update state with fetched posts
+      const response = await fetch(URL, { headers });
+      const data = await response.json();
+      setPosts(data);
     }
 
     getPosts();
-  }, [searchText, sort]); // Re-run effect whenever searchText or sort changes
+  }, []);
 
   function resetFilters() {
     setSearchText("");
     setSort("created_at.desc");
   }
+
+  const filteredPosts = posts.filter((post) => post.caption.toLowerCase().includes(searchText.trim().toLowerCase()));
+
+  filteredPosts.sort((postA, postB) => {
+    if (sort === "created_at.desc") {
+      return new Date(postB.created_at) - new Date(postA.created_at);
+    }
+
+    if (sort === "created_at.asc") {
+      return new Date(postA.created_at) - new Date(postB.created_at);
+    }
+
+    return postA.caption.localeCompare(postB.caption);
+  });
 
   return (
     <main className="app">
@@ -68,7 +74,7 @@ export default function HomePage() {
       </section>
 
       <section className="post-grid">
-        {posts.map((post) => (
+        {filteredPosts.map((post) => (
           <PostCard key={post.id} post={post} />
         ))}
       </section>
