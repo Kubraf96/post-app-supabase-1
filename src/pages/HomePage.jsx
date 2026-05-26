@@ -2,17 +2,19 @@ import { useEffect, useState } from "react";
 import PostCard from "../components/PostCard";
 
 const URL = import.meta.env.VITE_SUPABASE_URL;
-const headers = {
-  apikey: import.meta.env.VITE_SUPABASE_APIKEY,
-  "Content-Type": "application/json",
-};
+const APIKEY = import.meta.env.VITE_SUPABASE_APIKEY;
 
 export default function HomePage() {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
     async function getPosts() {
-      const response = await fetch(URL, { headers });
+      const response = await fetch(URL, {
+        headers: {
+          apikey: APIKEY,
+          "Content-Type": "application/json",
+        },
+      });
       const data = await response.json();
       setPosts(data);
     }
@@ -23,8 +25,8 @@ export default function HomePage() {
   return (
     <main className="app">
       <section className="feed-intro">
-        <p className="feed-eyebrow">Post App</p>
-        <h1 className="page-title">Explore the latest posts</h1>
+        <p className="feed-eyebrow">2GETHER</p>
+        <h1 className="page-title">Find dit næste event her!</h1>
       </section>
 
       <section className="post-grid">
@@ -35,3 +37,6 @@ export default function HomePage() {
     </main>
   );
 }
+
+console.log("VITE_SUPABASE_URL:", URL);
+console.log("VITE_SUPABASE_APIKEY:", APIKEY);
