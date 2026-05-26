@@ -89,7 +89,7 @@ export default function CreatePage() {
 
         <div className="form-actions">
           <button type="submit" className="btn btn-primary">
-            Save
+            Gem event
           </button>
         </div>
       </form>

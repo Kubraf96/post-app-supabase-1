@@ -104,7 +104,7 @@ export default function UpdatePage() {
 
         <div className="form-actions">
           <button type="submit" className="btn btn-primary">
-            Save
+            Gem ændringer
           </button>
         </div>
       </form>

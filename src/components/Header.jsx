@@ -5,10 +5,10 @@ export default function Header() {
     <header className="site-header">
       <nav className="site-nav" aria-label="Main navigation">
         <NavLink to="/" className="nav-link">
-          Home
+          Forside
         </NavLink>
         <NavLink to="/create" className="nav-link">
-          Create Post
+          Opret et event
         </NavLink>
       </nav>
     </header>
